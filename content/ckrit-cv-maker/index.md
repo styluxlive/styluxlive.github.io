@@ -111,4 +111,3 @@ summary: "Create and download a CV from the browser."
 </div>
 
 <script src="/js/ckrit-cv-maker.js"></script>
-<script src="/js/ckrit-cv-maker.js"></script>
