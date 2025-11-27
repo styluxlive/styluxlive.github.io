@@ -1,6 +1,6 @@
 # [The Academic CV That Gets You Hired](https://github.com/HugoBlox/theme-academic-cv)
 
-[![Screenshot](.github/preview.webp)](https://hugoblox.com/templates/academic-cv/start/?utm_source=github&utm_medium=readme)
+[![Screenshot](.github/preview.webp)](https://ckritbuilder.com/templates/academic-cv/start/?utm_source=github&utm_medium=readme)
 
 <h1 align="center">Build an Academic CV and Resumé That Stands Out</h1>
 
@@ -10,11 +10,11 @@
 </p>
 
 <p align="center">
-  <a href="https://hugoblox.com/templates/academic-cv/start?utm_source=github&utm_medium=readme"><b>🚀 Deploy Your Free CV in 60s</b></a>
+  <a href="https://ckritbuilder.com/templates/academic-cv/start?utm_source=github&utm_medium=readme"><b>🚀 Deploy Your Free CV in 60s</b></a>
   &nbsp;•&nbsp;
-  <a href="https://hugoblox.com/templates/?open=academic-cv&loading=true&utm_source=github&utm_medium=readme">Live Demo</a>
+  <a href="https://ckritbuilder.com/templates/?open=academic-cv&loading=true&utm_source=github&utm_medium=readme">Live Demo</a>
   &nbsp;•&nbsp;
-  <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme"><b>✨ Upgrade to Pro</b></a>
+  <a href="https://ckritbuilder.com/pro?utm_source=github&utm_medium=readme"><b>✨ Upgrade to Pro</b></a>
 </p>
 
 <p align="center">
@@ -66,17 +66,17 @@ Ready to take your career to the next level? Our Pro templates offer exclusive d
 
 <br/>
 <p align="center">
-  <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme"><b>💎 Get the Pro Pass</b></a> — Includes all Pro templates for a one-time price.<br/>
-  <a href="https://hugoblox.com/templates/academic-cv-pro/start?utm_source=github&utm_medium=readme">✨ Deploy Academic CV Pro</a>
+  <a href="https://ckritbuilder.com/pro?utm_source=github&utm_medium=readme"><b>💎 Get the Pro Pass</b></a> — Includes all Pro templates for a one-time price.<br/>
+  <a href="https://ckritbuilder.com/templates/academic-cv-pro/start?utm_source=github&utm_medium=readme">✨ Deploy Academic CV Pro</a>
   &nbsp;•&nbsp;
-  <a href="https://hugoblox.com/templates/resume-pro/start?utm_source=github&utm_medium=readme">📄 Deploy Resumé Pro</a>
+  <a href="https://ckritbuilder.com/templates/resume-pro/start?utm_source=github&utm_medium=readme">📄 Deploy Resumé Pro</a>
 </p>
 
 ---
 
 ## What Researchers Say
 
-> “Hugo Blox saved me 40+ hours on my lab site. BibTeX integration auto-updates publications — **our citations are up 3×**.”
+-> “CkritBuilder saved me 40+ hours on my lab site. BibTeX integration auto-updates publications — **our citations are up 3×**.”
 > — **Dr. Sarah Yang**, AI Researcher
 
 ---
@@ -87,14 +87,14 @@ Ready to take your career to the next level? Our Pro templates offer exclusive d
 
 Deploy your site to GitHub Pages in just 60 seconds with our browser-based starter.
 
-👉 <a href="https://hugoblox.com/templates/academic-cv/start?utm_source=github&utm_medium=readme"><b>Start with the Academic CV Template</b></a>
+👉 <a href="https://ckritbuilder.com/templates/academic-cv/start?utm_source=github&utm_medium=readme"><b>Start with the Academic CV Template</b></a>
 
 ### Prefer the Command Line?
 
 Use the local quickstart:
 
 ```bash
-# 1. Install Hugo Extended → https://docs.hugoblox.com/getting-started/install-hugo/
+# 1. Install Hugo Extended → https://docs.ckritbuilder.com/getting-started/install-hugo/
 # 2. Clone this starter
 git clone https://github.com/HugoBlox/theme-academic-cv my-site
 cd my-site
@@ -103,7 +103,7 @@ cd my-site
 pnpm install && hugo server
 ```
 
-For more guides, visit our documentation at **https://docs.hugoblox.com/**.
+For more guides, visit our documentation at **https://docs.ckritbuilder.com/**.
 
 ---
 
@@ -112,7 +112,7 @@ For more guides, visit our documentation at **https://docs.hugoblox.com/**.
 Join thousands of creators in our vibrant community to ask questions, share your work, and help us improve.
 
 - 💬 <a href="https://discord.gg/z8wNYzb">Discord</a>
-- 📚 <a href="https://docs.hugoblox.com/?utm_source=github&utm_medium=readme">Docs & Guides</a>
+- 📚 <a href="https://docs.ckritbuilder.com/?utm_source=github&utm_medium=readme">Docs & Guides</a>
 - 🐦 <a href="https://x.com/BuildLore">X / Twitter</a>
 - ⭐ <a href="https://github.com/HugoBlox/hugo-blox-builder">Star on GitHub</a>
 

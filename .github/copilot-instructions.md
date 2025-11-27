@@ -3,8 +3,8 @@
 
 These notes help an AI coding agent be productive quickly in this Hugo Blox-based site.
 
-- **Project type:** Hugo static site using the Hugo Blox `academic-cv` template (see `hugoblox.yaml`).
-- **Hugo version:** `0.152.2` (set in `hugoblox.yaml` and CI). Keep changes compatible with this version.
+- **Project type:** Hugo static site originally based on a template; this fork is rebranded to `CkritBuilder`.
+- **Hugo version:** `0.152.2` (set in `ckritbuilder.yaml` and CI). Keep changes compatible with this version.
 - **Package manager:** `pnpm` (see `package.json`); Node tooling used for Tailwind, Pagefind, and build helpers.
 
 **Quick local commands**
@@ -18,7 +18,7 @@ These notes help an AI coding agent be productive quickly in this Hugo Blox-base
 **Key files & where to look**
 
 - Site config: `config/_default/hugo.yaml` — global Hugo options and important patterns (ignoreFiles, outputs).
-- Template identity: `hugoblox.yaml` — this repo is the `academic-cv` template.
+- Template identity: `ckritbuilder.yaml` — this repo is the `academic-cv` template rebranded as `CkritBuilder`.
 - Content: `content/` — create or edit Markdown pages and sections here (e.g., `content/blog`, `content/publications`).
 - Publications: `content/publications/*` often include `cite.bib` files — preserve BibTeX formatting and front matter.
 - Layouts & partials: `layouts/` and `layouts/_partials/` — custom HTML/shortcodes; example: `layouts/_partials/hooks/head-end/github-button.html`.
