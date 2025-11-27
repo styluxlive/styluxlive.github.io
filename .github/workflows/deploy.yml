@@ -73,7 +73,7 @@ jobs:
       with:
         path: resources/
         key: ${{ runner.os }}-hugo-resources-${{ hashFiles('assets/**/*', 'config/**/*',
-          'hugo.yaml', 'package.json') }}
+          'hugobox.yaml', 'package.json') }}
         restore-keys: |
           ${{ runner.os }}-hugo-resources-
 
