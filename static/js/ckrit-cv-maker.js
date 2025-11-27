@@ -1,4 +1,5 @@
-// Ckrit CV Maker - client-side form handling and export
+// Ckrit CV Builder - client-side form handling and export
+// App: Ckrit CV Builder | Developer: Jabulani Mdluli
  (function () {
   const STORAGE_KEY = 'ckrit_cv_draft_v1';
   function el(html) {
@@ -255,27 +256,47 @@
     const color = d.options.color || '#2b6cb0';
     const template = d.options.template || 'simple';
     const font = 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial';
-    const css = `
-      body{font-family:${font};margin:0;padding:24px;background:#fff;color:#111}
-      .wrap{max-width:900px;margin:0 auto;padding:12px}
-      header{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-      header > div{flex:1}
-      h1{margin:0;color:${color};font-size:1.6rem}
-      .headline{color:#444;margin-top:6px}
-      .meta{margin-top:6px;color:#666;font-size:0.95rem}
-      section{margin-top:18px}
-      .skills span{display:inline-block;background:#f3f4f6;padding:6px 10px;margin:4px;border-radius:14px}
-      a{color:${color}}
-      @media (min-width:900px){
-        h1{font-size:2rem}
+    
+    // Determine CSS based on selected template
+    let css;
+    try {
+      const contrastColor = (template === 'modern' || template === 'classic' || template === 'minimal') ? lightenColor(color, 20) : color;
+      if (template === 'modern' && typeof generateModernCSS === 'function') {
+        css = generateModernCSS(color, font, contrastColor);
+      } else if (template === 'classic' && typeof generateClassicCSS === 'function') {
+        css = generateClassicCSS(color, font, contrastColor);
+      } else if (template === 'minimal' && typeof generateMinimalCSS === 'function') {
+        css = generateMinimalCSS(color, font, contrastColor);
+      } else if (typeof generateSimpleCSS === 'function') {
+        css = generateSimpleCSS(color, font);
+      } else {
+        // Fallback to inline simple CSS if templates not loaded
+        css = `
+          body{font-family:${font};margin:0;padding:24px;background:#fff;color:#111}
+          .wrap{max-width:900px;margin:0 auto;padding:12px}
+          header{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+          header > div{flex:1}
+          h1{margin:0;color:${color};font-size:1.6rem}
+          .headline{color:#444;margin-top:6px}
+          .meta{margin-top:6px;color:#666;font-size:0.95rem}
+          section{margin-top:18px}
+          .skills span{display:inline-block;background:#f3f4f6;padding:6px 10px;margin:4px;border-radius:14px}
+          a{color:${color}}
+          @media (min-width:900px){
+            h1{font-size:2rem}
+          }
+          @media (max-width:600px){
+            body{padding:12px}
+            .wrap{padding:6px}
+            header{align-items:flex-start}
+            .meta{font-size:0.9rem}
+          }
+        `;
       }
-      @media (max-width:600px){
-        body{padding:12px}
-        .wrap{padding:6px}
-        header{align-items:flex-start}
-        .meta{font-size:0.9rem}
-      }
-    `;
+    } catch (e) {
+      console.warn('Template generation failed, using fallback:', e);
+      css = `body{font-family:${font};margin:0;padding:24px;background:#fff;color:#111}.wrap{max-width:900px;margin:0 auto;padding:12px}header{display:flex;align-items:center;gap:16px}h1{margin:0;color:${color};font-size:1.6rem}.headline{color:#444;margin-top:6px}.meta{margin-top:6px;color:#666;font-size:0.95rem}section{margin-top:18px}.skills span{display:inline-block;background:#f3f4f6;padding:6px 10px;margin:4px;border-radius:14px}a{color:${color}}`;
+    }
 
     const socialHtml = [];
     if (d.social.linkedin) socialHtml.push(`<a href="${escapeHtml(d.social.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`);
@@ -496,5 +517,54 @@
 
     // attempt auto-load draft silently
     const draft = loadDraft(); if (draft) { if (confirm('Load saved draft?')) populateFormFromData(draft); }
+
+    // ==== INTRO / WIZARD SCREEN ====
+    const introScreen = document.getElementById('intro-screen');
+    const editorScreen = document.getElementById('editor-screen');
+    const introName = document.getElementById('intro-name');
+    const introHeadline = document.getElementById('intro-headline');
+    const introEmail = document.getElementById('intro-email');
+    const introDataDisplay = document.getElementById('intro-data-display');
+    const introContinueBtn = document.getElementById('intro-continue');
+    const backToIntroBtn = document.getElementById('back-to-intro');
+
+    // Live data display on intro screen
+    function updateIntroDisplay() {
+      const name = introName.value.trim();
+      const headline = introHeadline.value.trim();
+      const email = introEmail.value.trim();
+      let display = 'Collected data:\n\n';
+      if (name) display += `Name: ${name}\n`;
+      if (headline) display += `Headline: ${headline}\n`;
+      if (email) display += `Email: ${email}\n`;
+      if (!name && !headline && !email) display = 'Data will appear here as you type...';
+      introDataDisplay.textContent = display;
+    }
+
+    introName.addEventListener('input', updateIntroDisplay);
+    introHeadline.addEventListener('input', updateIntroDisplay);
+    introEmail.addEventListener('input', updateIntroDisplay);
+
+    introContinueBtn.addEventListener('click', function() {
+      if (!introName.value.trim()) {
+        alert('Please enter your full name to continue');
+        return;
+      }
+      // Populate editor form with intro data
+      const form = document.getElementById('cv-form');
+      form.querySelector('[name=name]').value = introName.value;
+      form.querySelector('[name=headline]').value = introHeadline.value;
+      form.querySelector('[name=email]').value = introEmail.value;
+      // Switch screens
+      introScreen.style.display = 'none';
+      editorScreen.style.display = 'block';
+      window.scrollTo(0, 0);
+    });
+
+    backToIntroBtn.addEventListener('click', function() {
+      editorScreen.style.display = 'none';
+      introScreen.style.display = 'block';
+      window.scrollTo(0, 0);
+    });
   });
 })();

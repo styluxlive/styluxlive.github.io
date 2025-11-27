@@ -6,10 +6,32 @@ summary: "Create and download a CV from the browser."
 ---
 
 <div id="ckrit-cv-app">
-  <p>This client-side CV maker captures user information and creates downloadable exports (Markdown, JSON, printable PDF via browser print), and a standalone landing page `index.html` you can host. Developer: <strong>Jabulani Mdluli</strong></p>
-  <p><strong>Privacy:</strong> All data is handled locally in the browser and is not sent to any server by default (unless you opt in to add a server).</p>
+  <!-- Intro Screen / Wizard -->
+  <div id="intro-screen" style="display:block">
+    <div style="max-width:600px;margin:0 auto;padding:24px;text-align:center">
+      <h1>Ckrit CV Builder</h1>
+      <p style="color:#666">Build a professional CV, landing page, and more. Developer: <strong>Jabulani Mdluli</strong></p>
+      <p><strong>Privacy:</strong> All data is handled locally in the browser. No data sent to any server by default.</p>
+      <hr/>
+      <p style="margin-top:24px">Let's start by collecting your core information:</p>
+      <div style="text-align:left;background:#f9f9f9;padding:20px;border-radius:8px;margin-top:16px">
+        <label>Full Name *<br/><input type="text" id="intro-name" placeholder="John Doe" style="width:100%;padding:8px;margin-top:6px;box-sizing:border-box;border:1px solid #ccc;border-radius:4px"/></label><br/>
+        <label style="margin-top:12px;display:block">Headline / Current Role<br/><input type="text" id="intro-headline" placeholder="Senior Software Engineer" style="width:100%;padding:8px;margin-top:6px;box-sizing:border-box;border:1px solid #ccc;border-radius:4px"/></label><br/>
+        <label style="margin-top:12px;display:block">Email<br/><input type="email" id="intro-email" placeholder="john@example.com" style="width:100%;padding:8px;margin-top:6px;box-sizing:border-box;border:1px solid #ccc;border-radius:4px"/></label><br/>
+        <button type="button" id="intro-continue" style="margin-top:20px;padding:10px 20px;background:#2b6cb0;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:1rem">Continue →</button>
+      </div>
+    </div>
 
-  <form id="cv-form">
+    <h2 style="text-align:center;margin-top:32px">Your Data (Live Preview)</h2>
+    <div id="intro-data-display" style="background:#f0f0f0;padding:20px;border-radius:8px;max-width:600px;margin:16px auto;font-family:monospace;font-size:0.9rem;white-space:pre-wrap;word-break:break-all;min-height:100px">
+      <span style="color:#999">Data will appear here as you type...</span>
+    </div>
+  </div>
+
+  <!-- Editor Screen -->
+  <div id="editor-screen" style="display:none">
+    <p><button type="button" id="back-to-intro" style="padding:8px 16px;background:#ccc;border:none;border-radius:4px;cursor:pointer">← Back to Intro</button></p>
+    <form id="cv-form">
     <label>Full name<br/><input type="text" name="name" required></label><br/>
     <label>Headline / Current role<br/><input type="text" name="headline"></label><br/>
     <label>Email<br/><input type="email" name="email"></label><br/>
@@ -85,6 +107,8 @@ summary: "Create and download a CV from the browser."
 
   <h2>Preview</h2>
   <iframe id="preview-frame" style="width:100%;height:700px;border:1px solid #ddd"></iframe>
+  </div>
 </div>
 
+<script src="/js/ckrit-cv-maker.js"></script>
 <script src="/js/ckrit-cv-maker.js"></script>
