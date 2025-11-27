@@ -1,6 +1,5 @@
-// Ckrit CV Builder - client-side form handling and export
-// App: Ckrit CV Builder | Developer: Jabulani Mdluli
- (function () {
+// Ckrit CV Builder — minimized client code
+(function(){
   const STORAGE_KEY = 'ckrit_cv_draft_v1';
   function el(html) {
     const div = document.createElement('div');
