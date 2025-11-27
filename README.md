@@ -1,3 +1,10 @@
+# CkritBuilder (minimal)
+This repo hosts a Hugo site with a small client-side CV builder.
+- Main app: `/static/js/ckrit-cv-maker.js`
+- Demo page: `/content/ckrit-cv-maker/index.md`
+Developer: Jabulani Mdluli
+
+To test locally: `pnpm install` then `pnpm run dev`.
 # [The Academic CV That Gets You Hired](https://github.com/CkritBuilder/theme-academic-cv)
 
 [![Screenshot](.github/preview.webp)](https://ckritbuilder.com/templates/academic-cv/start/?utm_source=github&utm_medium=readme)
