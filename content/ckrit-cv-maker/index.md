@@ -50,8 +50,9 @@ summary: "Create and download a CV from the browser."
     <label>Template
       <select id="template-select">
         <option value="simple">Simple</option>
-        <option value="modern">Modern</option>
-        <option value="classic">Classic</option>
+        <option value="modern">Modern (Tailwind)</option>
+        <option value="classic">Classic (Sidebar)</option>
+        <option value="minimal">Minimal (Clean)</option>
       </select>
     </label>
     <label>Primary color <input type="color" id="primary-color" value="#2b6cb0"></label>
