@@ -258,65 +258,94 @@
     const font = 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial';
     
     // Determine CSS based on selected template
-    let css;
+    let css, structure;
     try {
       const contrastColor = (template === 'modern' || template === 'classic' || template === 'minimal') ? lightenColor(color, 20) : color;
       if (template === 'modern' && typeof generateModernCSS === 'function') {
         css = generateModernCSS(color, font, contrastColor);
+        structure = buildModernStructure(d, color);
       } else if (template === 'classic' && typeof generateClassicCSS === 'function') {
         css = generateClassicCSS(color, font, contrastColor);
+        structure = buildClassicStructure(d, color);
       } else if (template === 'minimal' && typeof generateMinimalCSS === 'function') {
         css = generateMinimalCSS(color, font, contrastColor);
-      } else if (typeof generateSimpleCSS === 'function') {
-        css = generateSimpleCSS(color, font);
+        structure = buildMinimalStructure(d, color);
       } else {
-        // Fallback to inline simple CSS if templates not loaded
-        css = `
-          body{font-family:${font};margin:0;padding:24px;background:#fff;color:#111}
-          .wrap{max-width:900px;margin:0 auto;padding:12px}
-          header{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-          header > div{flex:1}
-          h1{margin:0;color:${color};font-size:1.6rem}
-          .headline{color:#444;margin-top:6px}
-          .meta{margin-top:6px;color:#666;font-size:0.95rem}
-          section{margin-top:18px}
-          .skills span{display:inline-block;background:#f3f4f6;padding:6px 10px;margin:4px;border-radius:14px}
-          a{color:${color}}
-          @media (min-width:900px){
-            h1{font-size:2rem}
-          }
-          @media (max-width:600px){
-            body{padding:12px}
-            .wrap{padding:6px}
-            header{align-items:flex-start}
-            .meta{font-size:0.9rem}
-          }
-        `;
+        css = generateSimpleCSS(color, font);
+        structure = buildSimpleStructure(d, color);
       }
     } catch (e) {
       console.warn('Template generation failed, using fallback:', e);
-      css = `body{font-family:${font};margin:0;padding:24px;background:#fff;color:#111}.wrap{max-width:900px;margin:0 auto;padding:12px}header{display:flex;align-items:center;gap:16px}h1{margin:0;color:${color};font-size:1.6rem}.headline{color:#444;margin-top:6px}.meta{margin-top:6px;color:#666;font-size:0.95rem}section{margin-top:18px}.skills span{display:inline-block;background:#f3f4f6;padding:6px 10px;margin:4px;border-radius:14px}a{color:${color}}`;
+      css = generateSimpleCSS(color, font);
+      structure = buildSimpleStructure(d, color);
     }
 
+    const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="${csp}"><title>${escapeHtml(d.name)}</title><style>${css}</style></head><body>${structure}</body></html>`;
+    return html;
+  }
+
+  function buildSimpleStructure(d, color) {
     const socialHtml = [];
     if (d.social.linkedin) socialHtml.push(`<a href="${escapeHtml(d.social.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`);
     if (d.social.github) socialHtml.push(`<a href="${escapeHtml(d.social.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>`);
     if (d.social.twitter) socialHtml.push(`<a href="${escapeHtml(d.social.twitter)}" target="_blank" rel="noopener noreferrer">X</a>`);
+    
+    const edu = (d.options.show.education && d.education.length) ? `<section><h2>Education</h2><ul>${d.education.map(e=>`<li><strong>${escapeHtml(e.title)}</strong>, ${escapeHtml(e.org)} ${e.dates?`(${escapeHtml(e.dates)})`:''}</li>`).join('')}</ul></section>` : '';
+    const exp = (d.options.show.experience && d.experience.length) ? `<section><h2>Experience</h2>${d.experience.map(e=>`<div><strong>${escapeHtml(e.title)}</strong>, ${escapeHtml(e.org)} ${e.dates?`(${escapeHtml(e.dates)})`:''}<p style="margin:8px 0">${escapeHtml(e.desc).replace(/\n/g,'<br/>')}</p></div>`).join('')}</section>` : '';
+    const proj = (d.options.show.projects && d.projects.length) ? `<section><h2>Projects</h2>${d.projects.map(p=>`<div><strong>${escapeHtml(p.title)}</strong>${p.link?` — <a href="${escapeHtml(p.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(p.link)}</a>`:''}<p style="margin:8px 0">${escapeHtml(p.desc).replace(/\n/g,'<br/>')}</p></div>`).join('')}</section>` : '';
+    const pubs = (d.options.show.publications && d.publications.length) ? `<section><h2>Publications</h2><ul>${d.publications.map(p=>`<li>${escapeHtml(p.title)}${p.venue?` — ${escapeHtml(p.venue)}`:''}${p.year?` (${escapeHtml(p.year)})`:''}</li>`).join('')}</ul></section>` : '';
+    const awards = (d.options.show.awards && d.awards.length) ? `<section><h2>Awards & Certifications</h2><ul>${d.awards.map(a=>`<li>${escapeHtml(a.title)}${a.org?`, ${escapeHtml(a.org)}`:''}${a.year?` (${escapeHtml(a.year)})`:''}</li>`).join('')}</ul></section>` : '';
+    const skills = (d.options.show.skills && d.skills.length) ? `<section><h2>Skills</h2><div class="skills">${d.skills.map(s=>`<span>${escapeHtml(s)}</span>`).join('')}</div></section>` : '';
+    
+    return `<div class="wrap"><header><div><h1>${escapeHtml(d.name)}</h1><div class="headline">${escapeHtml(d.headline||'')}</div><div class="meta">${d.email?`<a href="mailto:${escapeHtml(d.email)}">${escapeHtml(d.email)}</a>`:''} ${d.website?`<a href="${escapeHtml(d.website)}" target="_blank" rel="noopener noreferrer">Website</a>`:''} ${socialHtml.join(' ')} ${d.orcid?`${escapeHtml(d.orcid)}`:''}  </div></div></header>${d.summary?`<section><p>${escapeHtml(d.summary).replace(/\n/g,'<br/>')}</p></section>`:''}${skills}${edu}${exp}${proj}${pubs}${awards}<footer>Generated with Ckrit CV Builder by Jabulani Mdluli</footer></div>`;
+  }
 
-    const educationHtml = (d.options.show.education && d.education.length) ? `\n      <section><h2>Education</h2><ul>${d.education.map(e=>`<li><strong>${escapeHtml(e.title)}</strong>, ${escapeHtml(e.org)} ${e.dates?`(${escapeHtml(e.dates)})`:''}</li>`).join('')}</ul></section>` : '';
+  function buildModernStructure(d, color) {
+    const socialHtml = [];
+    if (d.social.linkedin) socialHtml.push(`<a href="${escapeHtml(d.social.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`);
+    if (d.social.github) socialHtml.push(`<a href="${escapeHtml(d.social.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>`);
+    if (d.social.twitter) socialHtml.push(`<a href="${escapeHtml(d.social.twitter)}" target="_blank" rel="noopener noreferrer">X</a>`);
+    
+    const edu = (d.options.show.education && d.education.length) ? `<h2>Education</h2><div>${d.education.map(e=>`<div class="entry"><div class="entry-header"><span class="entry-title">${escapeHtml(e.title)}</span></div><div class="entry-org">${escapeHtml(e.org)}${e.dates?` — ${escapeHtml(e.dates)}`:''}  </div></div>`).join('')}</div>` : '';
+    const exp = (d.options.show.experience && d.experience.length) ? `<h2>Experience</h2>${d.experience.map(e=>`<div class="entry"><div class="entry-header"><span class="entry-title">${escapeHtml(e.title)}</span></div><div class="entry-org">${escapeHtml(e.org)}${e.dates?` — ${escapeHtml(e.dates)}`:''}  </div>${e.desc?`<div class="entry-desc">${escapeHtml(e.desc).replace(/\n/g,'<br/>')}</div>`:''}</div>`).join('')}` : '';
+    const proj = (d.options.show.projects && d.projects.length) ? `<h2>Projects</h2>${d.projects.map(p=>`<div class="entry"><div class="entry-title">${escapeHtml(p.title)}${p.link?` <a href="${escapeHtml(p.link)}" target="_blank" rel="noopener noreferrer">[Link]</a>`:''}</div>${p.desc?`<div class="entry-desc">${escapeHtml(p.desc).replace(/\n/g,'<br/>')}</div>`:''}</div>`).join('')}` : '';
+    const pubs = (d.options.show.publications && d.publications.length) ? `<h2>Publications</h2><div>${d.publications.map(p=>`<div class="entry">${escapeHtml(p.title)}${p.venue?` — ${escapeHtml(p.venue)}`:''}${p.year?` (${escapeHtml(p.year)})`:''}</div>`).join('')}</div>` : '';
+    const awards = (d.options.show.awards && d.awards.length) ? `<h2>Awards</h2><div>${d.awards.map(a=>`<div class="entry">${escapeHtml(a.title)}${a.org?` — ${escapeHtml(a.org)}`:''}${a.year?` (${escapeHtml(a.year)})`:''}</div>`).join('')}</div>` : '';
+    const skills = (d.options.show.skills && d.skills.length) ? `<h2>Skills</h2><div class="skills">${d.skills.map(s=>`<span>${escapeHtml(s)}</span>`).join('')}</div>` : '';
+    
+    return `<div class="wrap"><aside><div><strong>${escapeHtml(d.headline||'')}</strong></div>${d.email?`<div style="margin-top:12px;font-size:0.9rem"><a href="mailto:${escapeHtml(d.email)}">${escapeHtml(d.email)}</a></div>`:''}<h2>Contact</h2>${d.website?`<div><a href="${escapeHtml(d.website)}" target="_blank" rel="noopener noreferrer">Website</a></div>`:''}${socialHtml.length?`<div>${socialHtml.join('<br/>')}</div>`:''}<h2>Skills</h2>${skills}</aside><main><header><h1>${escapeHtml(d.name)}</h1></header>${d.summary?`<p>${escapeHtml(d.summary).replace(/\n/g,'<br/>')}</p><hr/>`:''}<hr/>${edu}${exp}${proj}${pubs}${awards}<footer>Generated with Ckrit CV Builder</footer></main></div>`;
+  }
 
-    const experienceHtml = (d.options.show.experience && d.experience.length) ? `\n      <section><h2>Experience</h2>${d.experience.map(e=>`<div><strong>${escapeHtml(e.title)}</strong>, ${escapeHtml(e.org)} ${e.dates?`(${escapeHtml(e.dates)})`:''}<div>${escapeHtml(e.desc).replace(/\n/g,'<br/>')}</div></div>`).join('')}</section>` : '';
+  function buildClassicStructure(d, color) {
+    const socialHtml = [];
+    if (d.social.linkedin) socialHtml.push(`<a href="${escapeHtml(d.social.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`);
+    if (d.social.github) socialHtml.push(`<a href="${escapeHtml(d.social.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>`);
+    if (d.social.twitter) socialHtml.push(`<a href="${escapeHtml(d.social.twitter)}" target="_blank" rel="noopener noreferrer">X</a>`);
+    
+    const edu = (d.options.show.education && d.education.length) ? `<h2>Education</h2>${d.education.map(e=>`<div class="entry"><div class="entry-header"><span class="entry-title">${escapeHtml(e.title)}</span> <span class="entry-date">${escapeHtml(e.dates||'')}</span></div><div class="entry-org">${escapeHtml(e.org)}</div></div>`).join('')}` : '';
+    const exp = (d.options.show.experience && d.experience.length) ? `<h2>Experience</h2>${d.experience.map(e=>`<div class="entry"><div class="entry-header"><span class="entry-title">${escapeHtml(e.title)}</span> <span class="entry-date">${escapeHtml(e.dates||'')}</span></div><div class="entry-org">${escapeHtml(e.org)}</div>${e.desc?`<div class="entry-desc">${escapeHtml(e.desc).replace(/\n/g,'<br/>')}</div>`:''}</div>`).join('')}` : '';
+    const proj = (d.options.show.projects && d.projects.length) ? `<h2>Projects</h2>${d.projects.map(p=>`<div class="entry"><div class="entry-title">${escapeHtml(p.title)}${p.link?` <a href="${escapeHtml(p.link)}" target="_blank" rel="noopener noreferrer">[Link]</a>`:''}</div>${p.desc?`<div class="entry-desc">${escapeHtml(p.desc).replace(/\n/g,'<br/>')}</div>`:''}</div>`).join('')}` : '';
+    const pubs = (d.options.show.publications && d.publications.length) ? `<h2>Publications</h2>${d.publications.map(p=>`<div class="entry">${escapeHtml(p.title)}${p.venue?` — ${escapeHtml(p.venue)}`:''}${p.year?` (${escapeHtml(p.year)})`:''}</div>`).join('')}` : '';
+    const awards = (d.options.show.awards && d.awards.length) ? `<h2>Awards</h2>${d.awards.map(a=>`<div class="entry">${escapeHtml(a.title)}${a.org?` — ${escapeHtml(a.org)}`:''}${a.year?` (${escapeHtml(a.year)})`:''}</div>`).join('')}` : '';
+    const skills = (d.options.show.skills && d.skills.length) ? `<h2>Skills</h2><div class="skills">${d.skills.map(s=>`<span>${escapeHtml(s)}</span>`).join('')}</div>` : '';
+    
+    return `<div class="wrap"><h1>${escapeHtml(d.name)}</h1><div class="subheader"><div class="headline">${escapeHtml(d.headline||'')}</div><div class="meta">${d.email?`<a href="mailto:${escapeHtml(d.email)}">${escapeHtml(d.email)}</a>`:''}</div><div>${socialHtml.join(' • ')}</div></div>${d.summary?`<p>${escapeHtml(d.summary).replace(/\n/g,'<br/>')}</p>`:''}<hr/>${skills}${edu}${exp}${proj}${pubs}${awards}</div>`;
+  }
 
-    const projectsHtml = (d.options.show.projects && d.projects.length) ? `\n      <section><h2>Projects</h2>${d.projects.map(p=>`<div><strong>${escapeHtml(p.title)}</strong>${p.link?` — <a href="${escapeHtml(p.link)}">${escapeHtml(p.link)}</a>`:''}<div>${escapeHtml(p.desc).replace(/\n/g,'<br/>')}</div></div>`).join('')}</section>` : '';
-
-    const publicationsHtml = (d.options.show.publications && d.publications.length) ? `\n      <section><h2>Publications</h2><ul>${d.publications.map(p=>`<li>${escapeHtml(p.title)}${p.venue?` — ${escapeHtml(p.venue)}`:''}${p.year?` (${escapeHtml(p.year)})`:''}</li>`).join('')}</ul></section>` : '';
-
-    const awardsHtml = (d.options.show.awards && d.awards.length) ? `\n      <section><h2>Awards & Certifications</h2><ul>${d.awards.map(a=>`<li>${escapeHtml(a.title)}${a.org?`, ${escapeHtml(a.org)}`:''}${a.year?` (${escapeHtml(a.year)})`:''}</li>`).join('')}</ul></section>` : '';
-
-    const skillsHtml = (d.options.show.skills && d.skills.length) ? `\n      <section class="skills"><h2>Skills</h2><div>${d.skills.map(s=>`<span>${escapeHtml(s)}</span>`).join('')}</div></section>` : '';
-
-    const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="${csp}"><title>${escapeHtml(d.name)}</title><style>${css}</style></head><body><div class="wrap"><header><div><h1>${escapeHtml(d.name)}</h1><div class="headline">${escapeHtml(d.headline||'')}</div><div class="meta">${d.email?`<span>Email: <a href=\"mailto:${escapeHtml(d.email)}\" target=\"_blank\" rel=\"noopener noreferrer\">${escapeHtml(d.email)}</a></span>`:''}${d.website?` • <a href=\"${escapeHtml(d.website)}\" target=\"_blank\" rel=\"noopener noreferrer\">Website</a>`:''}${d.orcid?` • ${escapeHtml(d.orcid)}`:''}${socialHtml.length?` • ${socialHtml.join(' • ')}`:''}</div></div></header>${d.summary?`<section><h2>About</h2><div>${escapeHtml(d.summary).replace(/\n/g,'<br/>')}</div></section>`:''}${skillsHtml}${educationHtml}${experienceHtml}${projectsHtml}${publicationsHtml}${awardsHtml}<footer style="margin-top:28px;color:#888;font-size:0.9em">Generated with Ckrit CV Maker</footer></div></body></html>`;
-    return html;
+  function buildMinimalStructure(d, color) {
+    const socialHtml = [];
+    if (d.social.linkedin) socialHtml.push(`<a href="${escapeHtml(d.social.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`);
+    if (d.social.github) socialHtml.push(`<a href="${escapeHtml(d.social.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>`);
+    if (d.social.twitter) socialHtml.push(`<a href="${escapeHtml(d.social.twitter)}" target="_blank" rel="noopener noreferrer">X</a>`);
+    
+    const edu = (d.options.show.education && d.education.length) ? `<h2>Education</h2>${d.education.map(e=>`<div class="entry"><div class="entry-title">${escapeHtml(e.title)}</div><div class="entry-org">${escapeHtml(e.org)}${e.dates?` • ${escapeHtml(e.dates)}`:''}  </div></div>`).join('')}` : '';
+    const exp = (d.options.show.experience && d.experience.length) ? `<h2>Experience</h2>${d.experience.map(e=>`<div class="entry"><div class="entry-title">${escapeHtml(e.title)}</div><div class="entry-org">${escapeHtml(e.org)}${e.dates?` • ${escapeHtml(e.dates)}`:''}  </div>${e.desc?`<div class="entry-desc">${escapeHtml(e.desc).replace(/\n/g,'<br/>')}</div>`:''}</div>`).join('')}` : '';
+    const proj = (d.options.show.projects && d.projects.length) ? `<h2>Projects</h2>${d.projects.map(p=>`<div class="entry"><div class="entry-title">${escapeHtml(p.title)}${p.link?` <a href="${escapeHtml(p.link)}" target="_blank" rel="noopener noreferrer">[link]</a>`:''}</div>${p.desc?`<div class="entry-desc">${escapeHtml(p.desc).replace(/\n/g,'<br/>')}</div>`:''}</div>`).join('')}` : '';
+    const pubs = (d.options.show.publications && d.publications.length) ? `<h2>Publications</h2>${d.publications.map(p=>`<div class="entry">${escapeHtml(p.title)}${p.venue?` — ${escapeHtml(p.venue)}`:''}${p.year?` (${escapeHtml(p.year)})`:''}</div>`).join('')}` : '';
+    const awards = (d.options.show.awards && d.awards.length) ? `<h2>Awards</h2>${d.awards.map(a=>`<div class="entry">${escapeHtml(a.title)}${a.org?` — ${escapeHtml(a.org)}`:''}${a.year?` (${escapeHtml(a.year)})`:''}</div>`).join('')}` : '';
+    const skills = (d.options.show.skills && d.skills.length) ? `<h2>Skills</h2><div class="skills">${d.skills.map(s=>`<span>${escapeHtml(s)}</span>`).join('')}</div>` : '';
+    
+    return `<div class="wrap"><h1>${escapeHtml(d.name)}</h1><div class="headline">${escapeHtml(d.headline||'')}</div><div class="meta">${d.email?`<a href="mailto:${escapeHtml(d.email)}">${escapeHtml(d.email)}</a>`:''} ${d.website?`<a href="${escapeHtml(d.website)}" target="_blank" rel="noopener noreferrer">Website</a>`:''} ${socialHtml.join(' • ')}  </div>${d.summary?`<p>${escapeHtml(d.summary).replace(/\n/g,'<br/>')}</p>`:''}<hr/>${skills}${edu}${exp}${proj}${pubs}${awards}<footer>Generated with Ckrit CV Builder</footer></div>`;
   }
 
   // vCard generator
@@ -568,3 +597,135 @@
     });
   });
 })();
+
+// ========== TEMPLATE CSS GENERATORS ==========
+function generateSimpleCSS(color, font) {
+  return `
+    body{font-family:${font};margin:0;padding:24px;background:#fff;color:#111;line-height:1.6}
+    .wrap{max-width:900px;margin:0 auto;padding:12px}
+    header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:2px solid ${color};padding-bottom:16px}
+    header > div{flex:1}
+    h1{margin:0;color:${color};font-size:1.8rem;font-weight:700}
+    h2{color:${color};margin-top:20px;margin-bottom:12px}
+    .headline{color:#555;font-size:1.1rem;margin-top:6px}
+    .meta{margin-top:8px;color:#666;font-size:0.95rem}
+    section{margin-top:24px}
+    ul,ol{margin:8px 0;padding-left:24px}
+    li{margin:6px 0}
+    .skills span{display:inline-block;background:${color}15;color:${color};padding:6px 12px;margin:4px;border-radius:20px;font-size:0.9rem}
+    a{color:${color};text-decoration:none}
+    a:hover{text-decoration:underline}
+    footer{margin-top:32px;padding-top:16px;border-top:1px solid #ddd;color:#888;font-size:0.9rem}
+    @media (max-width:600px){
+      body{padding:16px}
+      .wrap{padding:8px}
+      header{align-items:flex-start}
+      h1{font-size:1.4rem}
+      .headline{font-size:1rem}
+    }
+  `;
+}
+
+function generateModernCSS(color, font, contrastColor) {
+  return `
+    body{font-family:${font};margin:0;padding:0;background:#f5f5f5;color:#222;line-height:1.7}
+    .wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;gap:0}
+    aside{background:${color};color:#fff;padding:32px 24px;min-height:100vh;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+    aside h2{font-size:0.85rem;text-transform:uppercase;letter-spacing:2px;margin-top:28px;margin-bottom:14px;opacity:0.95;font-weight:600}
+    aside a{color:#fff;text-decoration:none}
+    aside a:hover{opacity:0.8}
+    main{background:#fff;padding:48px;overflow:auto}
+    header{margin-bottom:36px}
+    h1{margin:0;color:${color};font-size:2.4rem;font-weight:700}
+    h2{color:${color};font-size:1.5rem;border-bottom:3px solid ${color};padding-bottom:12px;margin-top:32px;margin-bottom:16px}
+    .entry{margin:14px 0;padding-bottom:12px}
+    .entry-header{display:flex;justify-content:space-between;margin-bottom:4px}
+    .entry-title{font-weight:600;color:#111}
+    .entry-date{font-style:italic;color:#888}
+    .entry-org{color:#555;font-size:0.95rem;margin:4px 0}
+    .entry-desc{color:#666;margin:8px 0;font-size:0.95rem}
+    .skills span{display:inline-block;background:${color}20;color:${color};padding:8px 14px;margin:5px;border-radius:6px;font-size:0.9rem}
+    a{color:${color}}
+    footer{margin-top:48px;padding-top:24px;border-top:1px solid #e0e0e0;color:#999;font-size:0.85rem}
+    @media (max-width:900px){
+      .wrap{grid-template-columns:1fr}
+      aside{min-height:auto;padding:28px;grid-column:1}
+      main{padding:32px;grid-column:1}
+      .entry-header{flex-direction:column}
+      .entry-date{margin-top:4px}
+    }
+  `;
+}
+
+function generateClassicCSS(color, font, contrastColor) {
+  return `
+    body{font-family:${font};margin:0;padding:20px;background:#fff;color:#000;line-height:1.5;font-size:11pt}
+    .wrap{max-width:850px;margin:0 auto}
+    h1{text-align:center;font-size:20pt;margin:0 0 2pt 0;font-weight:bold}
+    h2{font-size:11pt;text-transform:uppercase;border-top:1.5pt solid #000;border-bottom:0.5pt solid #000;padding:6px 0;margin-top:16pt;margin-bottom:6pt}
+    .subheader{text-align:center;margin-bottom:18px;border-bottom:2pt solid #000;padding-bottom:10px}
+    .headline{font-weight:bold;margin-bottom:4pt}
+    .meta{margin-top:4pt;font-size:10pt}
+    .entry{margin:8pt 0;page-break-inside:avoid}
+    .entry-header{display:flex;justify-content:space-between;margin-bottom:2pt}
+    .entry-title{font-weight:bold}
+    .entry-date{font-style:italic}
+    .entry-org{margin:2pt 0;font-weight:normal}
+    .entry-desc{margin:4pt 0;font-size:10pt}
+    .skills span{display:inline-block;border:1pt solid #000;padding:4px 8px;margin:2px;font-size:10pt}
+    a{color:#0000EE;text-decoration:underline}
+    ul,ol{margin:6pt 0;padding-left:20pt}
+    li{margin:4pt 0}
+    footer{margin-top:32pt;padding-top:12pt;border-top:1pt solid #000;color:#333;font-size:9pt;text-align:center}
+    @media print{
+      body{padding:0;margin:0}
+      .wrap{max-width:100%}
+      h2{page-break-before:avoid}
+      .entry{page-break-inside:avoid}
+    }
+    @media (max-width:600px){
+      body{padding:12px;font-size:10pt}
+      h1{font-size:18pt}
+      .entry-header{flex-direction:column}
+      .entry-date{margin-top:2pt}
+    }
+  `;
+}
+
+function generateMinimalCSS(color, font, contrastColor) {
+  return `
+    body{font-family:${font};margin:0;padding:32px;background:#fafafa;color:#1a1a1a;line-height:1.8}
+    .wrap{max-width:750px;margin:0 auto}
+    h1{margin:0 0 4px 0;color:#000;font-size:1.9rem;font-weight:300;letter-spacing:-0.5px}
+    h2{color:#000;font-size:1.1rem;font-weight:500;margin-top:28px;margin-bottom:14px;padding-bottom:0}
+    .headline{color:#666;font-size:1rem;margin-top:2px;font-weight:400}
+    .meta{margin-top:8px;color:#888;font-size:0.95rem}
+    .meta a{color:${color}}
+    section{margin-top:22px}
+    ul,ol{margin:8px 0;padding-left:20px}
+    li{margin:5px 0;color:#333}
+    .entry{margin:12px 0;padding-bottom:8px}
+    .entry-title{font-weight:500;color:#000}
+    .entry-org{color:#666;font-size:0.95rem;margin-top:2px}
+    .entry-date{color:#999;font-size:0.9rem}
+    .entry-desc{color:#555;margin-top:6px;font-size:0.95rem}
+    .skills span{display:inline-block;background:transparent;border:1px solid #ddd;color:#555;padding:5px 10px;margin:3px;border-radius:2px;font-size:0.9rem}
+    a{color:${color};text-decoration:underline}
+    a:hover{opacity:0.7}
+    footer{margin-top:36px;padding-top:16px;border-top:1px solid #e8e8e8;color:#aaa;font-size:0.85rem}
+    @media (max-width:600px){
+      body{padding:16px}
+      h1{font-size:1.5rem}
+      h2{font-size:1rem}
+    }
+  `;
+}
+
+function lightenColor(color, percent) {
+  const num = parseInt(color.replace("#",""), 16);
+  const amt = Math.round(2.55 * percent);
+  const R = Math.min(255, (num >> 16) + amt);
+  const G = Math.min(255, (num >> 8 & 0x00FF) + amt);
+  const B = Math.min(255, (num & 0x0000FF) + amt);
+  return "#" + (0x1000000 + R*0x10000 + G*0x100 + B).toString(16).slice(1);
+}
