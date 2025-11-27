@@ -35,6 +35,8 @@ summary: "Create and download a CV from the browser."
     <label>Full name<br/><input type="text" name="name" required></label><br/>
     <label>Headline / Current role<br/><input type="text" name="headline"></label><br/>
     <label>Email<br/><input type="email" name="email"></label><br/>
+    <label>Phone<br/><input type="tel" name="phone" placeholder="e.g. +44 7700 900123"></label><br/>
+    <label>Location<br/><input type="text" name="location" placeholder="City, Country"></label><br/>
     <label>Website<br/><input type="url" name="website"></label><br/>
     <label>ORCID / Identifier<br/><input type="text" name="orcid"></label><br/>
     <label>Summary / Bio<br/><textarea name="summary" rows="4"></textarea></label><br/>
@@ -55,6 +57,14 @@ summary: "Create and download a CV from the browser."
     <div id="project-list"></div>
     <button type="button" id="add-project">Add project</button>
 
+    <h3>Certifications</h3>
+    <div id="certification-list"></div>
+    <button type="button" id="add-certification">Add certification</button>
+
+    <h3>Languages</h3>
+    <div id="language-list"></div>
+    <button type="button" id="add-language">Add language</button>
+
     <h3>Awards & Certifications</h3>
     <div id="award-list"></div>
     <button type="button" id="add-award">Add award / cert</button>
@@ -67,6 +77,10 @@ summary: "Create and download a CV from the browser."
     <label>LinkedIn<br/><input type="url" name="linkedin"></label>
     <label>GitHub<br/><input type="url" name="github"></label>
     <label>Twitter / X<br/><input type="url" name="twitter"></label>
+
+    <h3>References</h3>
+    <div id="reference-list"></div>
+    <button type="button" id="add-reference">Add reference</button>
 
     <h3>Options / Templates</h3>
     <label>Template
@@ -102,6 +116,11 @@ summary: "Create and download a CV from the browser."
       <button type="button" id="save-draft-encrypted">Save Encrypted Draft</button>
       <button type="button" id="load-draft-encrypted">Load Encrypted Draft</button>
       <button type="button" id="clear-draft">Clear Draft</button>
+      <label style="display:flex;align-items:center;gap:8px">
+        <input id="remote-doc-id" placeholder="remote doc id" style="padding:6px;border:1px solid #ccc;border-radius:4px" />
+        <button type="button" id="save-remote">Save to Remote</button>
+        <button type="button" id="load-remote">Load from Remote</button>
+      </label>
     </div>
   </form>
 

@@ -6,7 +6,8 @@
   "description": "Academic CV starter template for CkritBuilder with Tailwind CSS v4",
   "scripts": {
     "dev": "hugo server --disableFastRender",
-    "build": "hugo --minify"
+    "build": "hugo --minify",
+    "build-cv": "babel static/js/ckrit-cv-maker.js -o static/js/ckrit-cv-maker.es5.js --presets=@babel/preset-env --minified"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.12",

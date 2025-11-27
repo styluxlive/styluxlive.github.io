@@ -1,3 +1,5 @@
+<!-- minimized quickstart -->
+Quickstart: run `pnpm install` then `pnpm run dev` and open `/ckrit-cv-maker/`.
 # 🎯 Ckrit CV Builder - Quick Start Guide
 
 Welcome to the Ckrit CV Builder! Create professional, customizable CV landing pages in minutes.

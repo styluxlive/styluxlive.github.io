@@ -1,0 +1,16 @@
+Files to remove (if you want to permanently delete boilerplate placeholders):
+
+template-preview.html
+TEMPLATES.md
+CV_BUILDER_QUICKSTART.md
+IMPLEMENTATION_SUMMARY.md
+ARCHITECTURE.md
+DOCUMENTATION_INDEX.md
+PHASE_5_COMPLETION.txt
+CV_BUILDER_COMPLETE_REPORT.md
+
+Suggested command to remove locally and commit:
+
+git rm template-preview.html TEMPLATES.md CV_BUILDER_QUICKSTART.md IMPLEMENTATION_SUMMARY.md ARCHITECTURE.md DOCUMENTATION_INDEX.md PHASE_5_COMPLETION.txt CV_BUILDER_COMPLETE_REPORT.md
+git commit -m "chore: remove generated boilerplate docs per repo minimization"
+git push
