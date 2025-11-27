@@ -1,4 +1,4 @@
-# This workflow is only for the Hugo Blox repository. It is safe to delete from your site.
+# This workflow is only for the CkritBuilder repository. It is safe to delete from your site.
 name: Updater (WIP)
 
 on:
@@ -13,12 +13,12 @@ permissions:
 
 jobs:
   update:
-    if: github.repository_owner == 'HugoBlox'
+    if: github.repository_owner == 'CkritBuilder'
     runs-on: ubuntu-latest
     steps:
-      - uses: HugoBlox/gh-action-updater@v2
+      - uses: CkritBuilder/gh-action-updater@v2
         with:
-          feed-url: https://hugoblox.com/rss.xml
+          feed-url: https://ckritbuilder.com/rss.xml
           readme-section: news
           branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -7,17 +7,17 @@ authors:
   - admin
 tags:
   - Hugo
-  - Hugo Blox Builder
+  - CkritBuilder Builder
   - Markdown
 image:
   caption: 'Embed rich media such as videos and LaTeX math'
 ---
 
-[Hugo Blox Builder](https://hugoblox.com) is designed to give technical content creators a seamless experience. You can focus on the content and the Hugo Blox Builder which this template is built upon handles the rest.
+[CkritBuilder Builder](https://ckritbuilder.com) is designed to give technical content creators a seamless experience. You can focus on the content and the CkritBuilder Builder which this template is built upon handles the rest.
 
 **Embed videos, podcasts, code, LaTeX math, and even test students!**
 
-On this page, you'll find some examples of the types of technical content that can be rendered with Hugo Blox.
+On this page, you'll find some examples of the types of technical content that can be rendered with CkritBuilder.
 
 ## Citation
 
@@ -76,7 +76,7 @@ renders as
 
 ## Math
 
-Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. Enable math by setting the `math: true` option in your page's front matter, or enable math for your entire site by toggling math in your `config/_default/params.yaml` file:
+CkritBuilder Builder supports a Markdown extension for $\LaTeX$ math. Enable math by setting the `math: true` option in your page's front matter, or enable math for your entire site by toggling math in your `config/_default/params.yaml` file:
 
 ```yaml
 features:
@@ -116,7 +116,7 @@ $$
 
 ## Code
 
-Hugo Blox Builder utilises Hugo's Markdown extension for highlighting code syntax. The code theme can be selected in the `config/_default/params.yaml` file.
+CkritBuilder Builder utilises Hugo's Markdown extension for highlighting code syntax. The code theme can be selected in the `config/_default/params.yaml` file.
 
 
     ```python

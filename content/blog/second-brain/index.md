@@ -13,7 +13,7 @@ image:
 
 Create a personal knowledge base and share your knowledge with your peers.
 
-Hugo Blox web framework empowers you with one of the most flexible note-taking capabilities out there.
+CkritBuilder web framework empowers you with one of the most flexible note-taking capabilities out there.
 
 Create a powerful knowledge base that works on top of a local folder of plain text Markdown files.
 
@@ -21,7 +21,7 @@ Use it as your second brain, either publicly sharing your knowledge with your pe
 
 ## Mindmaps
 
-Hugo Blox supports a Markdown extension for mindmaps.
+CkritBuilder supports a Markdown extension for mindmaps.
 
 With this open format, can even edit your mindmaps in other popular tools such as Obsidian.
 
@@ -34,7 +34,7 @@ Mindmaps can be created by simply writing the items as a Markdown list within th
 <code>
 ```markmap {height="200px"}
 - Hugo Modules
-  - Hugo Blox
+  - CkritBuilder
   - blox-plugins-netlify
   - blox-plugins-netlify-cms
   - blox-plugins-reveal
@@ -47,7 +47,7 @@ renders as
 
 ```markmap {height="200px"}
 - Hugo Modules
-  - Hugo Blox
+  - CkritBuilder
   - blox-plugins-netlify
   - blox-plugins-netlify-cms
   - blox-plugins-reveal
@@ -61,9 +61,9 @@ Anh here's a more advanced mindmap with formatting, code blocks, and math:
 ```markmap
 - Mindmaps
   - Links
-    - [Hugo Blox Docs](https://docs.hugoblox.com/)
+    - [CkritBuilder Docs](https://docs.ckritbuilder.com/)
     - [Discord Community](https://discord.gg/z8wNYzb)
-    - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
+    - [GitHub](https://github.com/CkritBuilder/hugo-blox-builder)
   - Features
     - Markdown formatting
     - **inline** ~~text~~ *styles*
@@ -81,9 +81,9 @@ renders as
 ```markmap
 - Mindmaps
   - Links
-    - [Hugo Blox Docs](https://docs.hugoblox.com/)
+    - [CkritBuilder Docs](https://docs.ckritbuilder.com/)
     - [Discord Community](https://discord.gg/z8wNYzb)
-    - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
+    - [GitHub](https://github.com/CkritBuilder/hugo-blox-builder)
   - Features
     - Markdown formatting
     - **inline** ~~text~~ *styles*
@@ -103,7 +103,7 @@ renders as
 
 ## Callouts
 
-Use [callouts](https://docs.hugoblox.com/reference/markdown/#callouts) (aka _asides_, _hints_, or _alerts_) to draw attention to notes, tips, and warnings.
+Use [callouts](https://docs.ckritbuilder.com/reference/markdown/#callouts) (aka _asides_, _hints_, or _alerts_) to draw attention to notes, tips, and warnings.
 
 Use the `> [!NOTE]` syntax to create a callout.
 

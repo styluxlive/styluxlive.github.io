@@ -6,13 +6,13 @@ authors:
   - admin
 tags:
   - Hugo
-  - Hugo Blox
+  - CkritBuilder
   - Markdown
 image:
   caption: 'Image credit: [**Unsplash**](https://unsplash.com)'
 ---
 
-Hugo Blox is designed to give technical content creators a seamless experience. You can focus on the content and Hugo Blox handles the rest.
+CkritBuilder is designed to give technical content creators a seamless experience. You can focus on the content and CkritBuilder handles the rest.
 
 Use popular tools such as Plotly, Mermaid, and data frames.
 
@@ -28,7 +28,7 @@ HuggingFace Dataset
 
 GitHub Repository
 
-{{< embed platform="github" resource="HugoBlox/hugo-blox-builder" type="repo" >}}
+{{< embed platform="github" resource="CkritBuilder/hugo-blox-builder" type="repo" >}}
 
 Custom embed with manual data
 
@@ -46,7 +46,7 @@ You can also add images to any platform embed:
 
 ## Charts
 
-Hugo Blox supports the popular [Plotly](https://plot.ly/) format for interactive data visualizations. With Plotly, you can design almost any kind of visualization you can imagine!
+CkritBuilder supports the popular [Plotly](https://plot.ly/) format for interactive data visualizations. With Plotly, you can design almost any kind of visualization you can imagine!
 
 Save your Plotly JSON in your page folder, for example `line-chart.json`, and then add the `{{</* chart data="line-chart" */>}}` shortcode where you would like the chart to appear.
 
@@ -58,7 +58,7 @@ You might also find the [Plotly JSON Editor](http://plotly-json-editor.getforge.
 
 ## Diagrams
 
-Hugo Blox supports the _Mermaid_ Markdown extension for diagrams.
+CkritBuilder supports the _Mermaid_ Markdown extension for diagrams.
 
 An example **flowchart**:
 
@@ -210,14 +210,14 @@ Add engaging call-to-action buttons to your data visualization posts:
 
 &nbsp;
 
-{{< button url="https://github.com/HugoBlox" new_tab="true" style="ghost" icon="arrow-top-right-on-square" icon_position="right" >}}View Source Code{{< /button >}}
+{{< button url="https://github.com/CkritBuilder" new_tab="true" style="ghost" icon="arrow-top-right-on-square" icon_position="right" >}}View Source Code{{< /button >}}
 
 ```go-html-template
 {{</* button url="#" style="primary" size="lg" align="center" icon="chart-bar" */>}}View Dashboard{{</* /button */>}}
 
 {{</* button url="/data/results.csv" style="outline" icon="document-arrow-down" */>}}Download Data{{</* /button */>}}
 
-{{</* button url="https://github.com/HugoBlox" new_tab="true" style="ghost" icon="arrow-top-right-on-square" icon_position="right" */>}}View Source Code{{</* /button */>}}
+{{</* button url="https://github.com/CkritBuilder" new_tab="true" style="ghost" icon="arrow-top-right-on-square" icon_position="right" */>}}View Source Code{{</* /button */>}}
 ```
 
 ### Multiple Aligned Buttons

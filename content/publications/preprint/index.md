@@ -26,7 +26,7 @@ tags:
 
 featured: true
 
-hugoblox:
+ckritbuilder:
   ids:
     arxiv: 1512.04133v1
 
@@ -35,7 +35,7 @@ links:
   provider: arxiv
   id: 1512.04133v1
 - type: code
-  url: https://github.com/HugoBlox/hugo-blox-builder
+  url: https://github.com/CkritBuilder/hugo-blox-builder
 - type: slides
   url: https://www.slideshare.net/
 - type: dataset
@@ -78,4 +78,4 @@ This work is driven by the results in my [previous paper](/publications/conferen
 > [!NOTE]
 > Create your slides in Markdown - click the *Slides* button to check out the example.
 
-Add the publication's **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/).
+Add the publication's **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.ckritbuilder.com/content/writing-markdown-latex/).

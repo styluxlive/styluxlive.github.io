@@ -4,11 +4,11 @@ summary: Easily embed audio and video media in Hugo sites
 date: 2023-10-24
 ---
 
-[Hugo Blox Builder](https://hugoblox.com) is designed to give technical content creators a seamless experience. You can focus on the content and the Hugo Blox Builder which this template is built upon handles the rest.
+[CkritBuilder Builder](https://ckritbuilder.com) is designed to give technical content creators a seamless experience. You can focus on the content and the CkritBuilder Builder which this template is built upon handles the rest.
 
 **Embed videos, podcasts, code, LaTeX math, and even test students!**
 
-On this page, you'll find some examples of the types of technical content that can be rendered with Hugo Blox.
+On this page, you'll find some examples of the types of technical content that can be rendered with CkritBuilder.
 
 ## Video
 
@@ -56,12 +56,12 @@ renders as
 
 ## Math
 
-Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.yaml` file.
+CkritBuilder Builder supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.yaml` file.
 
 To render _inline_ or _block_ math, wrap your LaTeX math with `{{</* math */>}}$...${{</* /math */>}}` or `{{</* math */>}}$$...$${{</* /math */>}}`, respectively.
 
 > [!NOTE]
-> We wrap the LaTeX math in the Hugo Blox _math_ shortcode to prevent Hugo rendering our math as Markdown. This callout now uses the standard Markdown alert syntax!
+> We wrap the LaTeX math in the CkritBuilder _math_ shortcode to prevent Hugo rendering our math as Markdown. This callout now uses the standard Markdown alert syntax!
 
 Example **math block**:
 
@@ -103,7 +103,7 @@ $$
 
 ## Code
 
-Hugo Blox Builder utilises Hugo's Markdown extension for highlighting code syntax. The code theme can be selected in the `config/_default/params.yaml` file.
+CkritBuilder Builder utilises Hugo's Markdown extension for highlighting code syntax. The code theme can be selected in the `config/_default/params.yaml` file.
 
     ```python
     import pandas as pd

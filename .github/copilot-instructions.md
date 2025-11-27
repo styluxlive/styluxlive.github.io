@@ -1,7 +1,7 @@
-<!-- Copilot / AI agent instructions tailored to this Hugo Blox site -->
+<!-- Copilot / AI agent instructions tailored to this CkritBuilder site -->
 # Copilot Instructions for this Repository
 
-These notes help an AI coding agent be productive quickly in this Hugo Blox-based site.
+These notes help an AI coding agent be productive quickly in this CkritBuilder-based site.
 
 - **Project type:** Hugo static site originally based on a template; this fork is rebranded to `CkritBuilder`.
 - **Hugo version:** `0.152.2` (set in `ckritbuilder.yaml` and CI). Keep changes compatible with this version.

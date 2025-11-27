@@ -9,13 +9,13 @@ The configuration of your site can be found in `config/_default/`.
 
 ## Full Documentation
 
-See https://docs.hugoblox.com/getting-started/customize/
+See https://docs.ckritbuilder.com/getting-started/customize/
 
 ## Navigation
 
 ### Menu
 
-See https://docs.hugoblox.com/getting-started/customize/#menu-items
+See https://docs.ckritbuilder.com/getting-started/customize/#menu-items
 
 ## Left Sidebar
 
@@ -36,7 +36,7 @@ menu:
       pageRef: "/page-filename-here"
       weight: 2
     - name: "An external link ↗"
-      url: "https://hugoblox.com"
+      url: "https://ckritbuilder.com"
       weight: 3
 ```
 

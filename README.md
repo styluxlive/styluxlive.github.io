@@ -1,4 +1,4 @@
-# [The Academic CV That Gets You Hired](https://github.com/HugoBlox/theme-academic-cv)
+# [The Academic CV That Gets You Hired](https://github.com/CkritBuilder/theme-academic-cv)
 
 [![Screenshot](.github/preview.webp)](https://ckritbuilder.com/templates/academic-cv/start/?utm_source=github&utm_medium=readme)
 
@@ -25,8 +25,8 @@
   <a href="https://discord.gg/z8wNYzb">
     <img src="https://img.shields.io/discord/722225264733716590?label=Join%20Discord&style=social" alt="Discord">
   </a>
-  <a href="https://github.com/HugoBlox/theme-academic-cv">
-    <img src="https://img.shields.io/github/stars/HugoBlox/theme-academic-cv?label=Star%20Academic%20CV&style=social" alt="GitHub Stars">
+  <a href="https://github.com/CkritBuilder/theme-academic-cv">
+    <img src="https://img.shields.io/github/stars/CkritBuilder/theme-academic-cv?label=Star%20Academic%20CV&style=social" alt="GitHub Stars">
   </a>
 </p>
 
@@ -39,10 +39,10 @@ The Academic CV template is designed for impact. Whether you're an AI researcher
 - **✍️ Showcase Your Expertise:** Easily write content with Markdown, Jupyter, or RStudio. Display your publications, talks, and projects in a stunning, professional layout.
 - **📈 Boost Your Citations:** Automatic BibTeX import and SEO-optimized pages mean your work gets discovered more easily, increasing your research impact.
 - **💼 Land Your Dream Job:** Create a memorable online presence that impresses recruiters from top tech firms and prestigious universities.
-- **🚀 Launch in Minutes:** No coding required. The Hugo Blox Builder lets you customize everything with drag-and-drop sections.
+- **🚀 Launch in Minutes:** No coding required. The CkritBuilder Builder lets you customize everything with drag-and-drop sections.
 
 <p align="center">
-  <a href="https://hugoblox.com/templates/academic-cv/start?utm_source=github&utm_medium=readme">
+  <a href="https://ckritbuilder.com/templates/academic-cv/start?utm_source=github&utm_medium=readme">
     <img src="https://img.shields.io/badge/⚡️%20Get%20Your%20CV%20in%2060s-ff4655?style=for-the-badge" alt="Deploy this template" width="400">
   </a>
 </p>
@@ -96,7 +96,7 @@ Use the local quickstart:
 ```bash
 # 1. Install Hugo Extended → https://docs.ckritbuilder.com/getting-started/install-hugo/
 # 2. Clone this starter
-git clone https://github.com/HugoBlox/theme-academic-cv my-site
+git clone https://github.com/CkritBuilder/theme-academic-cv my-site
 cd my-site
 
 # 3. Run locally
@@ -114,7 +114,7 @@ Join thousands of creators in our vibrant community to ask questions, share your
 - 💬 <a href="https://discord.gg/z8wNYzb">Discord</a>
 - 📚 <a href="https://docs.ckritbuilder.com/?utm_source=github&utm_medium=readme">Docs & Guides</a>
 - 🐦 <a href="https://x.com/BuildLore">X / Twitter</a>
-- ⭐ <a href="https://github.com/HugoBlox/hugo-blox-builder">Star on GitHub</a>
+- ⭐ <a href="https://github.com/CkritBuilder/hugo-blox-builder">Star on GitHub</a>
 
 ---
 

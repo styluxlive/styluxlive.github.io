@@ -304,6 +304,58 @@
     alert('Draft saved locally');
   }
 
+  // Encryption helpers (Web Crypto API) - AES-GCM with PBKDF2-derived key
+  async function getKeyFromPassword(password, salt) {
+    const enc = new TextEncoder();
+    const passKey = await crypto.subtle.importKey('raw', enc.encode(password), { name: 'PBKDF2' }, false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt: salt, iterations: 250000, hash: 'SHA-256' },
+      passKey,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['encrypt', 'decrypt']
+    );
+    return key;
+  }
+
+  function concatBuffers(...buffers) {
+    let length = buffers.reduce((sum, b) => sum + b.byteLength, 0);
+    const tmp = new Uint8Array(length);
+    let offset = 0;
+    buffers.forEach(b => { tmp.set(new Uint8Array(b), offset); offset += b.byteLength; });
+    return tmp.buffer;
+  }
+
+  function toBase64(buf) { return btoa(String.fromCharCode(...new Uint8Array(buf))); }
+  function fromBase64(str) { const bin = atob(str); const len = bin.length; const bytes = new Uint8Array(len); for (let i=0;i<len;i++) bytes[i]=bin.charCodeAt(i); return bytes.buffer; }
+
+  async function encryptJsonWithPassword(obj, password) {
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const key = await getKeyFromPassword(password, salt);
+    const enc = new TextEncoder();
+    const data = enc.encode(JSON.stringify(obj));
+    const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, data);
+    const combined = concatBuffers(salt.buffer, iv.buffer, ct);
+    return toBase64(combined);
+  }
+
+  async function decryptJsonWithPassword(b64, password) {
+    try {
+      const combined = fromBase64(b64);
+      const view = new Uint8Array(combined);
+      const salt = view.slice(0,16).buffer;
+      const iv = view.slice(16,28).buffer;
+      const ct = view.slice(28).buffer;
+      const key = await getKeyFromPassword(password, salt);
+      const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, ct);
+      const dec = new TextDecoder();
+      return JSON.parse(dec.decode(pt));
+    } catch (e) {
+      throw new Error('Decryption failed');
+    }
+  }
+
   function loadDraft() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) { alert('No draft found'); return null; }
@@ -363,6 +415,30 @@
     document.getElementById('save-draft').addEventListener('click', function(){ const data = gatherData(); saveDraft(data); });
     document.getElementById('load-draft').addEventListener('click', function(){ const d = loadDraft(); if (d) populateFormFromData(d); });
     document.getElementById('clear-draft').addEventListener('click', function(){ localStorage.removeItem(STORAGE_KEY); alert('Draft cleared'); });
+
+    // encrypted save/load
+    document.getElementById('save-draft-encrypted').addEventListener('click', async function(){
+      const pass = document.getElementById('draft-passphrase').value;
+      if (!pass) { alert('Enter a passphrase to encrypt the draft'); return; }
+      const data = gatherData();
+      try {
+        const b64 = await encryptJsonWithPassword(data, pass);
+        localStorage.setItem(STORAGE_KEY + '_enc', b64);
+        alert('Encrypted draft saved locally');
+      } catch (e) { console.error(e); alert('Failed to encrypt draft'); }
+    });
+
+    document.getElementById('load-draft-encrypted').addEventListener('click', async function(){
+      const b64 = localStorage.getItem(STORAGE_KEY + '_enc');
+      if (!b64) { alert('No encrypted draft found'); return; }
+      const pass = document.getElementById('draft-passphrase').value;
+      if (!pass) { alert('Enter the passphrase to decrypt the draft'); return; }
+      try {
+        const d = await decryptJsonWithPassword(b64, pass);
+        populateFormFromData(d);
+        alert('Encrypted draft loaded');
+      } catch (e) { console.error(e); alert('Failed to decrypt draft — check passphrase'); }
+    });
 
     // attempt auto-load draft silently
     const draft = loadDraft(); if (draft) { if (confirm('Load saved draft?')) populateFormFromData(draft); }

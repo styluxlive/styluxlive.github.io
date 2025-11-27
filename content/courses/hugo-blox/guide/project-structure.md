@@ -15,7 +15,7 @@ There are **4 main folders for Hugo-based sites**:
 - `config/_default/` for your site configuration files
   - `hugo.yaml` to configure Hugo (site title, URL, Hugo options, setup per-folder page features)
   - `module.yaml` to install or uninstall Hugo themes and plugins
-  - `params.yaml` to configure Hugo Blox options (SEO, analytics, site features)
+  - `params.yaml` to configure CkritBuilder options (SEO, analytics, site features)
   - `menus.yaml` to configure your menu links (if the menu is enabled in `params.yaml`)
   - `languages.yaml` to configure your site's language or to set language-specific options in a multilingual site
 - `static/uploads/` for any files you want visitors to download, such as a PDF

@@ -14,7 +14,7 @@ authors:
 
 tags:
   - Academic
-  - Hugo Blox
+  - CkritBuilder
   - Markdown
 
 content_meta:
@@ -27,23 +27,23 @@ Welcome 👋
 
 ## Overview
 
-1. The Hugo Blox website builder for Hugo, along with its starter templates, is designed for professional creators, educators, and teams/organizations - although it can be used to create any kind of site
+1. The CkritBuilder website builder for Hugo, along with its starter templates, is designed for professional creators, educators, and teams/organizations - although it can be used to create any kind of site
 2. The template can be modified and customised to suit your needs. It's a good platform for anyone looking to take control of their data and online identity whilst having the convenience to start off with a **no-code solution (write in Markdown and customize with YAML parameters)** and having **flexibility to later add even deeper personalization with HTML and CSS**
 3. You can work with all your favourite tools and apps with hundreds of plugins and integrations to speed up your workflows, interact with your readers, and much more
 
-[//]: # '[![The template is mobile first with a responsive design to ensure that your site looks stunning on every device.](https://raw.githubusercontent.com/HugoBlox/hugo-blox-builder/main/templates/academic-cv/preview.png)](https://hugoblox.com)'
+[//]: # '[![The template is mobile first with a responsive design to ensure that your site looks stunning on every device.](https://raw.githubusercontent.com/CkritBuilder/hugo-blox-builder/main/templates/academic-cv/preview.png)](https://ckritbuilder.com)'
 
 ### Get Started
 
 > [!TIP]+ Quick Start Guide
-> New to Hugo Blox? Follow these steps to get your site up and running in minutes!
+> New to CkritBuilder? Follow these steps to get your site up and running in minutes!
 
-- 👉 [**Create a new site**](https://hugoblox.com/templates/)
-- 📚 [**Personalize your site**](https://docs.hugoblox.com/)
-- 💬 [Chat with the **Hugo Blox community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
-- 🐦 Twitter: [@GetResearchDev](https://x.com/BuildLore) [@GeorgeCushen](https://twitter.com/GeorgeCushen) #MadeWithHugoBlox
-- 💡 [Request a **feature** or report a **bug** for _Hugo Blox_](https://github.com/HugoBlox/hugo-blox-builder/issues)
-- ⬆️ **Updating Hugo Blox?** View the [Update Guide](https://docs.hugoblox.com/reference/update/) and [Release Notes](https://github.com/HugoBlox/hugo-blox-builder/releases)
+- 👉 [**Create a new site**](https://ckritbuilder.com/templates/)
+- 📚 [**Personalize your site**](https://docs.ckritbuilder.com/)
+- 💬 [Chat with the **CkritBuilder community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
+- 🐦 Twitter: [@GetResearchDev](https://x.com/BuildLore) [@GeorgeCushen](https://twitter.com/GeorgeCushen) #MadeWithCkritBuilder
+- 💡 [Request a **feature** or report a **bug** for _CkritBuilder_](https://github.com/CkritBuilder/hugo-blox-builder/issues)
+- ⬆️ **Updating CkritBuilder?** View the [Update Guide](https://docs.ckritbuilder.com/reference/update/) and [Release Notes](https://github.com/CkritBuilder/hugo-blox-builder/releases)
 
 > [!IMPORTANT]
 > Remember to backup your site before making major updates!
@@ -52,9 +52,9 @@ Welcome 👋
 
 To help us develop this template and software sustainably under the MIT license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship.
 
-### [❤️ Click here to become a sponsor and help support Hugo Blox's future ❤️](https://hugoblox.com/sponsor/)
+### [❤️ Click here to become a sponsor and help support CkritBuilder's future ❤️](https://ckritbuilder.com/sponsor/)
 
-As a token of appreciation for sponsoring, you can **unlock [these](https://hugoblox.com/sponsor/) awesome rewards and extra features 🦄✨**
+As a token of appreciation for sponsoring, you can **unlock [these](https://ckritbuilder.com/sponsor/) awesome rewards and extra features 🦄✨**
 
 ## Ecosystem
 
@@ -62,17 +62,17 @@ As a token of appreciation for sponsoring, you can **unlock [these](https://hugo
 
 ## Inspiration
 
-[Learn what other **creators**](https://hugoblox.com/creators/) are building with this template.
+[Learn what other **creators**](https://ckritbuilder.com/creators/) are building with this template.
 
 ## Features
 
 > [!NOTE]+ Enhanced Markdown Support  
-> Hugo Blox now supports GitHub and Obsidian-style callouts! Use standard Markdown alert syntax like `> [!NOTE]` for better portability.
+> CkritBuilder now supports GitHub and Obsidian-style callouts! Use standard Markdown alert syntax like `> [!NOTE]` for better portability.
 
-- **Page builder** - Create _anything_ with no-code [**blocks**](https://hugoblox.com/blocks/) and [**elements**](https://docs.hugoblox.com/reference/markdown/)
+- **Page builder** - Create _anything_ with no-code [**blocks**](https://ckritbuilder.com/blocks/) and [**elements**](https://docs.ckritbuilder.com/reference/markdown/)
 - **Edit any type of content** - Blog posts, publications, talks, slides, projects, and more!
-- **Create content** in [**Markdown**](https://docs.hugoblox.com/reference/markdown/), [**Jupyter**](https://docs.hugoblox.com/getting-started/cms/), or [**RStudio**](https://docs.hugoblox.com/getting-started/cms/)
-- **Plugin System** - Fully customizable [**color** and **font themes**](https://docs.hugoblox.com/getting-started/customize/)
+- **Create content** in [**Markdown**](https://docs.ckritbuilder.com/reference/markdown/), [**Jupyter**](https://docs.ckritbuilder.com/getting-started/cms/), or [**RStudio**](https://docs.ckritbuilder.com/getting-started/cms/)
+- **Plugin System** - Fully customizable [**color** and **font themes**](https://docs.ckritbuilder.com/getting-started/customize/)
 - **Display Code and Math** - Code syntax highlighting and LaTeX math supported
 - **Integrations** - [Google Analytics](https://analytics.google.com), [Disqus commenting](https://disqus.com), Maps, Contact Forms, and more!
 - **Beautiful Site** - Simple and refreshing one-page design
@@ -90,12 +90,12 @@ As a token of appreciation for sponsoring, you can **unlock [these](https://hugo
 
 ## Themes
 
-Hugo Blox and its templates come with **automatic day (light) and night (dark) mode** built-in. Visitors can choose their preferred mode by clicking the sun/moon icon in the header.
+CkritBuilder and its templates come with **automatic day (light) and night (dark) mode** built-in. Visitors can choose their preferred mode by clicking the sun/moon icon in the header.
 
-[Choose a stunning **theme** and **font**](https://docs.hugoblox.com/getting-started/customize/) for your site. Themes are fully customizable.
+[Choose a stunning **theme** and **font**](https://docs.ckritbuilder.com/getting-started/customize/) for your site. Themes are fully customizable.
 
 ## License
 
 Copyright 2016-present [George Cushen](https://georgecushen.com).
 
-Released under the [MIT](https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md) license.
+Released under the [MIT](https://github.com/CkritBuilder/hugo-blox-builder/blob/main/LICENSE.md) license.

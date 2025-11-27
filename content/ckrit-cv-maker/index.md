@@ -66,6 +66,7 @@ summary: "Create and download a CV from the browser."
     </div>
 
     <hr/>
+    <label>Encryption passphrase (optional)<br/><input type="password" id="draft-passphrase" placeholder="Enter a passphrase to encrypt drafts"/></label>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button type="button" id="preview-btn">Live Preview</button>
       <button type="button" id="download-md">Download Markdown</button>
@@ -73,6 +74,8 @@ summary: "Create and download a CV from the browser."
       <button type="button" id="download-html">Generate Landing Page (index.html)</button>
       <button type="button" id="save-draft">Save Draft</button>
       <button type="button" id="load-draft">Load Draft</button>
+      <button type="button" id="save-draft-encrypted">Save Encrypted Draft</button>
+      <button type="button" id="load-draft-encrypted">Load Encrypted Draft</button>
       <button type="button" id="clear-draft">Clear Draft</button>
     </div>
   </form>

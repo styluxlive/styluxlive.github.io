@@ -11,15 +11,15 @@ type: docs
 
 ### Create a site
 
-[Click to choose your starting template](https://hugoblox.com/templates)
+[Click to choose your starting template](https://ckritbuilder.com/templates)
 
 ### Configure your new site
 
-[Configure your site name, description, and menu.](https://docs.hugoblox.com/tutorial/blog/)
+[Configure your site name, description, and menu.](https://docs.ckritbuilder.com/tutorial/blog/)
 
 ### Add your content
 
-[Edit the homepage and add your documentation pages.](https://docs.hugoblox.com/tutorial/blog/)
+[Edit the homepage and add your documentation pages.](https://docs.ckritbuilder.com/tutorial/blog/)
 
 ### Publish your site
 

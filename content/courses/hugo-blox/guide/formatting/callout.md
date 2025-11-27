@@ -3,7 +3,7 @@ title: Callouts
 linkTitle: Callouts
 ---
 
-Hugo Blox supports GitHub and Obsidian-style Markdown callouts for maximum compatibility and content portability.
+CkritBuilder supports GitHub and Obsidian-style Markdown callouts for maximum compatibility and content portability.
 
 Callouts are a useful feature to draw attention to important or related content such as notes, hints, or warnings in your articles.
 
@@ -13,7 +13,7 @@ Callouts are a useful feature to draw attention to important or related content 
 
 ### Basic Callout Types
 
-Hugo Blox supports all 15+ callout types from [Obsidian's documentation](https://help.obsidian.md/callouts):
+CkritBuilder supports all 15+ callout types from [Obsidian's documentation](https://help.obsidian.md/callouts):
 
 **Information & Notes:**
 
@@ -167,7 +167,7 @@ This still works but is deprecated. Use the Markdown syntax above!
 
 ### CSS Customization
 
-Hugo Blox generates callouts with semantic CSS classes and data attributes, making customization easy. Each callout has:
+CkritBuilder generates callouts with semantic CSS classes and data attributes, making customization easy. Each callout has:
 
 - Base class: `.callout`
 - Type-specific data attribute: `data-callout="note"`

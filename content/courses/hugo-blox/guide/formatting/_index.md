@@ -2,7 +2,7 @@
 title: Formatting
 ---
 
-Write rich, engaging content with Markdown and re-usable Hugo Blox components (shortcodes):
+Write rich, engaging content with Markdown and re-usable CkritBuilder components (shortcodes):
 
 {{< cards >}}
   {{< card url="button" title="Button" icon="cursor-arrow-rays" >}}
