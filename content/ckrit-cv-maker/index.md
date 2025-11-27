@@ -71,7 +71,9 @@ summary: "Create and download a CV from the browser."
       <button type="button" id="preview-btn">Live Preview</button>
       <button type="button" id="download-md">Download Markdown</button>
       <button type="button" id="download-json">Download JSON</button>
+      <button type="button" id="download-vcard">Download vCard</button>
       <button type="button" id="download-html">Generate Landing Page (index.html)</button>
+      <button type="button" id="share-cv">Share CV</button>
       <button type="button" id="save-draft">Save Draft</button>
       <button type="button" id="load-draft">Load Draft</button>
       <button type="button" id="save-draft-encrypted">Save Encrypted Draft</button>

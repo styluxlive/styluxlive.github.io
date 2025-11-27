@@ -250,25 +250,37 @@
   }
 
   function generateLandingHTML(d) {
+    // Content Security Policy for generated landing pages
+    const csp = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self'";
     const color = d.options.color || '#2b6cb0';
     const template = d.options.template || 'simple';
     const font = 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial';
     const css = `
       body{font-family:${font};margin:0;padding:24px;background:#fff;color:#111}
-      .wrap{max-width:900px;margin:0 auto}
-      header{display:flex;align-items:center;gap:16px}
-      h1{margin:0;color:${color}}
-      .headline{color:#444}
-      .meta{margin-top:6px;color:#666}
-      section{margin-top:22px}
+      .wrap{max-width:900px;margin:0 auto;padding:12px}
+      header{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+      header > div{flex:1}
+      h1{margin:0;color:${color};font-size:1.6rem}
+      .headline{color:#444;margin-top:6px}
+      .meta{margin-top:6px;color:#666;font-size:0.95rem}
+      section{margin-top:18px}
       .skills span{display:inline-block;background:#f3f4f6;padding:6px 10px;margin:4px;border-radius:14px}
       a{color:${color}}
+      @media (min-width:900px){
+        h1{font-size:2rem}
+      }
+      @media (max-width:600px){
+        body{padding:12px}
+        .wrap{padding:6px}
+        header{align-items:flex-start}
+        .meta{font-size:0.9rem}
+      }
     `;
 
     const socialHtml = [];
-    if (d.social.linkedin) socialHtml.push(`<a href="${escapeHtml(d.social.linkedin)}">LinkedIn</a>`);
-    if (d.social.github) socialHtml.push(`<a href="${escapeHtml(d.social.github)}">GitHub</a>`);
-    if (d.social.twitter) socialHtml.push(`<a href="${escapeHtml(d.social.twitter)}">X</a>`);
+    if (d.social.linkedin) socialHtml.push(`<a href="${escapeHtml(d.social.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`);
+    if (d.social.github) socialHtml.push(`<a href="${escapeHtml(d.social.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>`);
+    if (d.social.twitter) socialHtml.push(`<a href="${escapeHtml(d.social.twitter)}" target="_blank" rel="noopener noreferrer">X</a>`);
 
     const educationHtml = (d.options.show.education && d.education.length) ? `\n      <section><h2>Education</h2><ul>${d.education.map(e=>`<li><strong>${escapeHtml(e.title)}</strong>, ${escapeHtml(e.org)} ${e.dates?`(${escapeHtml(e.dates)})`:''}</li>`).join('')}</ul></section>` : '';
 
@@ -282,8 +294,22 @@
 
     const skillsHtml = (d.options.show.skills && d.skills.length) ? `\n      <section class="skills"><h2>Skills</h2><div>${d.skills.map(s=>`<span>${escapeHtml(s)}</span>`).join('')}</div></section>` : '';
 
-    const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(d.name)}</title><style>${css}</style></head><body><div class="wrap"><header><div><h1>${escapeHtml(d.name)}</h1><div class="headline">${escapeHtml(d.headline||'')}</div><div class="meta">${d.email?`<span>Email: <a href=\"mailto:${escapeHtml(d.email)}\">${escapeHtml(d.email)}</a></span>`:''}${d.website?` • <a href=\"${escapeHtml(d.website)}\">Website</a>`:''}${d.orcid?` • ${escapeHtml(d.orcid)}`:''}${socialHtml.length?` • ${socialHtml.join(' • ')}`:''}</div></div></header>${d.summary?`<section><h2>About</h2><div>${escapeHtml(d.summary).replace(/\n/g,'<br/>')}</div></section>`:''}${skillsHtml}${educationHtml}${experienceHtml}${projectsHtml}${publicationsHtml}${awardsHtml}<footer style="margin-top:28px;color:#888;font-size:0.9em">Generated with Ckrit CV Maker</footer></div></body></html>`;
+    const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="${csp}"><title>${escapeHtml(d.name)}</title><style>${css}</style></head><body><div class="wrap"><header><div><h1>${escapeHtml(d.name)}</h1><div class="headline">${escapeHtml(d.headline||'')}</div><div class="meta">${d.email?`<span>Email: <a href=\"mailto:${escapeHtml(d.email)}\" target=\"_blank\" rel=\"noopener noreferrer\">${escapeHtml(d.email)}</a></span>`:''}${d.website?` • <a href=\"${escapeHtml(d.website)}\" target=\"_blank\" rel=\"noopener noreferrer\">Website</a>`:''}${d.orcid?` • ${escapeHtml(d.orcid)}`:''}${socialHtml.length?` • ${socialHtml.join(' • ')}`:''}</div></div></header>${d.summary?`<section><h2>About</h2><div>${escapeHtml(d.summary).replace(/\n/g,'<br/>')}</div></section>`:''}${skillsHtml}${educationHtml}${experienceHtml}${projectsHtml}${publicationsHtml}${awardsHtml}<footer style="margin-top:28px;color:#888;font-size:0.9em">Generated with Ckrit CV Maker</footer></div></body></html>`;
     return html;
+  }
+
+  // vCard generator
+  function generateVCard(d) {
+    const lines = [];
+    lines.push('BEGIN:VCARD');
+    lines.push('VERSION:3.0');
+    lines.push(`FN:${d.name || ''}`);
+    if (d.headline) lines.push(`TITLE:${d.headline}`);
+    if (d.email) lines.push(`EMAIL;TYPE=INTERNET:${d.email}`);
+    if (d.website) lines.push(`URL:${d.website}`);
+    if (d.summary) lines.push(`NOTE:${d.summary.replace(/\n/g,'\\n')}`);
+    lines.push('END:VCARD');
+    return lines.join('\r\n');
   }
 
   function escapeHtml(s){
@@ -409,8 +435,36 @@
 
     document.getElementById('download-md').addEventListener('click', function(){ const data = gatherData(); const md = generateMarkdown(data); download(`${(data.name||'cv').replace(/\s+/g,'_')}.md`, md, 'text/markdown'); });
     document.getElementById('download-json').addEventListener('click', function(){ const data = gatherData(); download(`${(data.name||'cv').replace(/\s+/g,'_')}.json`, JSON.stringify(data, null, 2), 'application/json'); });
+    document.getElementById('download-vcard').addEventListener('click', function(){ const data = gatherData(); const v = generateVCard(data); download(`${(data.name||'cv').replace(/\s+/g,'_')}.vcf`, v, 'text/vcard'); });
 
     document.getElementById('download-html').addEventListener('click', function(){ const data = gatherData(); const html = generateLandingHTML(data); download(`${(data.name||'cv').replace(/\s+/g,'_')}_index.html`, html, 'text/html'); });
+    document.getElementById('share-cv').addEventListener('click', async function(){
+      const data = gatherData();
+      const html = generateLandingHTML(data);
+      const vcard = generateVCard(data);
+      try {
+        // prefer sharing files where supported
+        if (navigator.canShare && navigator.canShare({ files: [new File([html], 'index.html', { type: 'text/html' })] })) {
+          const file = new File([html], 'index.html', { type: 'text/html' });
+          await navigator.share({ files: [file], title: data.name || 'CV', text: data.headline || '' });
+          return;
+        }
+        // fallback: share text (vCard) or copy HTML to clipboard
+        if (navigator.share) {
+          await navigator.share({ title: data.name || 'CV', text: vcard });
+          return;
+        }
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(html);
+          alert('Landing HTML copied to clipboard (paste into a file to save).');
+          return;
+        }
+        alert('Share is not available in this browser.');
+      } catch (e) {
+        console.error(e);
+        alert('Sharing failed');
+      }
+    });
 
     document.getElementById('save-draft').addEventListener('click', function(){ const data = gatherData(); saveDraft(data); });
     document.getElementById('load-draft').addEventListener('click', function(){ const d = loadDraft(); if (d) populateFormFromData(d); });
