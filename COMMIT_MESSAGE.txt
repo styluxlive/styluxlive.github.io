@@ -1,0 +1,8 @@
+chore: remove generated boilerplate docs and minimize repo
+
+Removed large generated documentation and preview files per project minimization request. Kept core CV app and templates in `static/js/ckrit-cv-maker.js` and demo page in `content/ckrit-cv-maker/index.md`.
+
+Run locally:
+git rm <files listed in GIT_RM_LIST.txt>
+git commit -m "chore: remove generated boilerplate docs and minimize repo"
+git push

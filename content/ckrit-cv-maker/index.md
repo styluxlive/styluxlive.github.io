@@ -116,6 +116,11 @@ summary: "Create and download a CV from the browser."
       <button type="button" id="save-draft-encrypted">Save Encrypted Draft</button>
       <button type="button" id="load-draft-encrypted">Load Encrypted Draft</button>
       <button type="button" id="clear-draft">Clear Draft</button>
+      <label style="display:flex;align-items:center;gap:8px">
+        <input id="remote-doc-id" placeholder="remote doc id" style="padding:6px;border:1px solid #ccc;border-radius:4px" />
+        <button type="button" id="save-remote">Save to Remote</button>
+        <button type="button" id="load-remote">Load from Remote</button>
+      </label>
     </div>
   </form>
 
